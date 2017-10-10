@@ -2,11 +2,24 @@ from flask import Flask,render_template
 from flask_bootstrap import Bootstrap
 from flask_moment import Moment
 from flask_sqlalchemy import SQLAlchemy
+from flask_login import LoginManager
+
 from config import config
 
 bootstarp = Bootstrap()
 moment = Moment()
 db = SQLAlchemy()
+login_manager = LoginManager()
+
+'''session_protection attribute of the LoginManager
+object can be set to None ,'basic' , or strong
+'''
+
+login_manager.session_protection = 'strong'
+
+'''login_view attribute sets the endpoint for the login page '''
+
+login_manager.login_view = 'auth.login'
 
 '''create_app() function is the appli‐
 cation factory, which takes as an argument the name of a configuration to
@@ -25,6 +38,7 @@ def create_app(config_name):
     bootstarp.init_app(app)
     moment.init_app(app)
     db.init_app(app)
+    login_manager.init_app(app)
 
 
 
@@ -49,5 +63,14 @@ def create_app(config_name):
 
     from .main import main as main_blueprint
     app.register_blueprint(main_blueprint)
+
+    from .auth import auth as auth_blueprint
+    '''The url_prefix argument in the blueprint registration is optional.
+        When used, all the routes defined in the blueprint will be
+        registered with the given prefix, in this case /auth.
+        For example, the /login route will be registered as /auth/login,
+        and the fully qualified URL under the development web server
+        then becomes http://localhost:5000/auth/login'''
+    app.register_blueprint(auth_blueprint, url_prefix='/auth')
 
     return app
