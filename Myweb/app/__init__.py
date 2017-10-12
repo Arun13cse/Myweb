@@ -65,12 +65,14 @@ def create_app(config_name):
     app.register_blueprint(main_blueprint)
 
     from .auth import auth as auth_blueprint
+    
     '''The url_prefix argument in the blueprint registration is optional.
         When used, all the routes defined in the blueprint will be
         registered with the given prefix, in this case /auth.
         For example, the /login route will be registered as /auth/login,
         and the fully qualified URL under the development web server
         then becomes http://localhost:5000/auth/login'''
+
     app.register_blueprint(auth_blueprint, url_prefix='/auth')
 
     return app
