@@ -2,4 +2,4 @@
 
 This application demonstrate application hosting using Flask (Python).
 
-This code is the emplementaion of the book _Flask Web Development Developing_Web Applications with Python_ by _Miguel_Grinberg_
+This code is the emplementaion of the book _Flask Web Development Developing Web Applications with Python_ by _Miguel_Grinberg_
